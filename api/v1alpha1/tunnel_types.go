@@ -17,6 +17,7 @@ limitations under the License.
 package v1alpha1
 
 import (
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -90,10 +91,9 @@ type TunnelSpec struct {
 	// Size defines the number of Daemon pods to run for this tunnel
 	Size int32 `json:"size,omitempty"`
 
-	//+kubebuilder:default:="cloudflare/cloudflared:2022.12.1"
 	//+kubebuilder:validation:Optional
-	// Image sets the Cloudflared Image to use. Defaults to the image set during the release of the operator.
-	Image string `json:"image,omitempty"`
+	// PodSpec specifies the override spec for the cloudflared pod. Override the first container.
+	PodSpec corev1.PodSpec `json:"podSpec,omitempty"`
 
 	//+kubebuilder:default:=false
 	//+kubebuilder:validation:Optional
